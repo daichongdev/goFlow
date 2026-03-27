@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"fmt"
 	"time"
 
 	"goflow/internal/pkg/errcode"
+	"goflow/internal/pkg/logger"
 	"goflow/internal/pkg/ratelimit"
 	"goflow/internal/pkg/response"
 
@@ -16,26 +16,26 @@ import (
 // window: 时间窗口大小
 func RateLimit(limiter *ratelimit.RateLimiter, limit int, window time.Duration) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		if limiter == nil {
+			c.Next()
+			return
+		}
 		ip := c.ClientIP()
-		// 获取注册时的完整路径，如 /app/v1/products/:id
 		path := c.FullPath()
 		if path == "" {
-			path = c.Request.URL.Path
+			c.Next()
+			return
 		}
-
-		// 构造 Redis Key: rl:ip:path
-		key := fmt.Sprintf("rl:%s:%s", ip, path)
-
-		allowed, err := limiter.Allow(c.Request.Context(), key, limit, window)
+		key := ratelimit.BuildKey(ip, c.Request.Method, path)
+		allowed, retryAfter, err := limiter.Allow(c.Request.Context(), key, limit, window)
 		if err != nil {
-			// Redis 故障时降级：记录日志并放行，不影响核心业务可用性
-			// 也可以选择 c.Abort()，取决于业务对限流的强制程度
+			logger.WithCtx(c.Request.Context()).Warnw("rate limit check failed", "path", path, "method", c.Request.Method, "ip", ip, "error", err)
 			c.Next()
 			return
 		}
 
 		if !allowed {
-			// 返回 429 Too Many Requests
+			c.Header("Retry-After", ratelimit.RetryAfterSeconds(retryAfter))
 			response.Error(c, errcode.ErrTooManyRequests())
 			c.Abort()
 			return
