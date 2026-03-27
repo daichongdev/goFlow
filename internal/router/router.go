@@ -50,7 +50,10 @@ func Setup(svcCtx *svc.ServiceContext, auth *middleware.AuthMiddleware) *gin.Eng
 	// App 客户端接口
 	appGroup := r.Group("/app/v1")
 	app.RegisterUserRoutes(appGroup, userHandler)
-	app.RegisterProductRoutes(appGroup, productHandler)
+
+	// App 商品接口
+	appProductGroup := appGroup.Group("")
+	app.RegisterProductRoutes(appProductGroup, productHandler)
 
 	// App 需要认证的接口
 	appAuth := appGroup.Group("")
@@ -64,7 +67,8 @@ func Setup(svcCtx *svc.ServiceContext, auth *middleware.AuthMiddleware) *gin.Eng
 	// 管理后台全部需认证
 	adminAuth := adminGroup.Group("")
 	adminAuth.Use(auth.AdminAuth())
-	admin.RegisterProductRoutes(adminAuth, productHandler)
+
+	admin.RegisterProductRoutes(adminAuth, svcCtx.RateLimiter, productHandler)
 
 	return r
 }

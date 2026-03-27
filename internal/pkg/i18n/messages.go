@@ -29,6 +29,10 @@ func Init() {
 		LangZhCN: "服务器内部错误",
 		LangEnUS: "internal server error",
 	})
+	Register(10006, map[string]string{
+		LangZhCN: "请求过于频繁",
+		LangEnUS: "too many requests",
+	})
 
 	// 用户错误码 20001-20099
 	Register(20001, map[string]string{

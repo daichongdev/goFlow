@@ -6,6 +6,7 @@ import (
 
 	"goflow/internal/config"
 	"goflow/internal/mq"
+	"goflow/internal/pkg/ratelimit"
 	"goflow/internal/repository"
 	"goflow/internal/service"
 
@@ -22,6 +23,9 @@ type ServiceContext struct {
 	ProductSvc service.ProductService
 	UserSvc    service.UserService
 	AdminSvc   service.AdminService
+
+	// 限流器
+	RateLimiter *ratelimit.RateLimiter
 
 	// MQ
 	MQPublisher *mq.Publisher
@@ -44,6 +48,9 @@ func NewServiceContext(cfg *config.Config, db *gorm.DB, rdb *redis.Client, mqPub
 	userSvc := service.NewUserService(userRepo, cfg)
 	adminSvc := service.NewAdminService(adminRepo, cfg)
 
+	// 限流器
+	rl := ratelimit.NewRateLimiter(rdb)
+
 	return &ServiceContext{
 		Config: cfg,
 
@@ -53,6 +60,8 @@ func NewServiceContext(cfg *config.Config, db *gorm.DB, rdb *redis.Client, mqPub
 		ProductSvc: productSvc,
 		UserSvc:    userSvc,
 		AdminSvc:   adminSvc,
+
+		RateLimiter: rl,
 
 		MQPublisher: mqPublisher,
 	}

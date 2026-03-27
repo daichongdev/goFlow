@@ -24,11 +24,12 @@ func New(code int, httpStatus int, msg string) *AppError {
 
 // 错误码常量，供外部按 code 值引用（如 response.ErrorWithMsg）
 const (
-	CodeBadRequest   = 10001
-	CodeUnauthorized = 10002
-	CodeForbidden    = 10003
-	CodeNotFound     = 10004
-	CodeInternal     = 10005
+	CodeBadRequest      = 10001
+	CodeUnauthorized    = 10002
+	CodeForbidden       = 10003
+	CodeNotFound        = 10004
+	CodeInternal        = 10005
+	CodeTooManyRequests = 10006
 
 	CodeUserOrPassword  = 20001
 	CodeUserDisabled    = 20002
@@ -61,6 +62,10 @@ func ErrNotFound() *AppError {
 
 func ErrInternal() *AppError {
 	return &AppError{Code: CodeInternal, Message: "服务器内部错误", httpStatus: 500}
+}
+
+func ErrTooManyRequests() *AppError {
+	return &AppError{Code: CodeTooManyRequests, Message: "请求过于频繁", httpStatus: 429}
 }
 
 // 用户错误码 20001-20099
