@@ -6,13 +6,12 @@ import (
 	"time"
 
 	"goflow/internal/config"
-	"goflow/internal/middleware"
 	"goflow/internal/model"
+	"goflow/internal/pkg/auth"
 	"goflow/internal/pkg/errcode"
 	"goflow/internal/pkg/response"
 	"goflow/internal/repository"
 
-	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -73,26 +72,14 @@ func (s *userService) Login(ctx context.Context, username, password string) (*re
 		return nil, errcode.ErrUserDisabled()
 	}
 
-	// 生成 JWT — 使用 CustomClaims 与认证中间件保持一致
-	expireAt := time.Now().Add(s.jwtExpire)
-	claims := middleware.CustomClaims{
-		UserID:   user.ID,
-		Username: user.Username,
-		Role:     middleware.RoleUser,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(expireAt),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-		},
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenStr, err := token.SignedString(s.jwtSecret)
+	tokenStr, expireAt, err := auth.BuildToken(s.jwtSecret, user.ID, user.Username, auth.RoleUser, s.jwtExpire)
 	if err != nil {
 		return nil, errcode.ErrInternal()
 	}
 
 	return &response.LoginResult{
 		Token:    tokenStr,
-		ExpireAt: expireAt.Unix(),
+		ExpireAt: expireAt,
 		User: response.UserInfo{
 			ID:       user.ID,
 			Username: user.Username,

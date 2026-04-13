@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"errors"
 	"strconv"
 
 	"goflow/internal/model"
@@ -61,12 +60,7 @@ func (h *ProductHandler) Get(c *gin.Context) {
 
 	product, err := h.productSvc.GetByID(c.Request.Context(), uint(id))
 	if err != nil {
-		var appErr *errcode.AppError
-		if errors.As(err, &appErr) {
-			response.Error(c, appErr)
-			return
-		}
-		response.Error(c, errcode.ErrInternal())
+		writeServiceError(c, err)
 		return
 	}
 	response.Success(c, product)
@@ -115,12 +109,7 @@ func (h *ProductHandler) Update(c *gin.Context) {
 
 	product, err := h.productSvc.GetByID(c.Request.Context(), uint(id))
 	if err != nil {
-		var appErr *errcode.AppError
-		if errors.As(err, &appErr) {
-			response.Error(c, appErr)
-			return
-		}
-		response.Error(c, errcode.ErrInternal())
+		writeServiceError(c, err)
 		return
 	}
 
@@ -150,12 +139,7 @@ func (h *ProductHandler) Update(c *gin.Context) {
 	}
 
 	if err := h.productSvc.Update(c.Request.Context(), product); err != nil {
-		var appErr *errcode.AppError
-		if errors.As(err, &appErr) {
-			response.Error(c, appErr)
-			return
-		}
-		response.Error(c, errcode.ErrInternal())
+		writeServiceError(c, err)
 		return
 	}
 	response.Success(c, product)
@@ -170,12 +154,7 @@ func (h *ProductHandler) Delete(c *gin.Context) {
 	}
 
 	if err := h.productSvc.Delete(c.Request.Context(), uint(id)); err != nil {
-		var appErr *errcode.AppError
-		if errors.As(err, &appErr) {
-			response.Error(c, appErr)
-			return
-		}
-		response.Error(c, errcode.ErrInternal())
+		writeServiceError(c, err)
 		return
 	}
 	response.Success(c, nil)

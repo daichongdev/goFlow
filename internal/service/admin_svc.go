@@ -6,13 +6,12 @@ import (
 	"time"
 
 	"goflow/internal/config"
-	"goflow/internal/middleware"
 	"goflow/internal/model"
+	"goflow/internal/pkg/auth"
 	"goflow/internal/pkg/errcode"
 	"goflow/internal/pkg/response"
 	"goflow/internal/repository"
 
-	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -73,25 +72,14 @@ func (s *adminService) Login(ctx context.Context, username, password string) (*r
 		return nil, errcode.ErrAdminDisabled()
 	}
 
-	expireAt := time.Now().Add(s.jwtExpire)
-	claims := middleware.CustomClaims{
-		UserID:   admin.ID,
-		Username: admin.Username,
-		Role:     middleware.RoleAdmin,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(expireAt),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-		},
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenStr, err := token.SignedString(s.jwtSecret)
+	tokenStr, expireAt, err := auth.BuildToken(s.jwtSecret, admin.ID, admin.Username, auth.RoleAdmin, s.jwtExpire)
 	if err != nil {
 		return nil, errcode.ErrInternal()
 	}
 
 	return &response.LoginResult{
 		Token:    tokenStr,
-		ExpireAt: expireAt.Unix(),
+		ExpireAt: expireAt,
 		User: response.AdminInfo{
 			ID:       admin.ID,
 			Username: admin.Username,

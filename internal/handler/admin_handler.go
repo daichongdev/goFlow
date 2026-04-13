@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"errors"
 
 	"goflow/internal/pkg/errcode"
 	"goflow/internal/pkg/i18n"
@@ -35,12 +34,7 @@ func (h *AdminHandler) Login(c *gin.Context) {
 
 	result, err := h.adminSvc.Login(c.Request.Context(), r.Username, r.Password)
 	if err != nil {
-		var appErr *errcode.AppError
-		if errors.As(err, &appErr) {
-			response.Error(c, appErr)
-			return
-		}
-		response.Error(c, errcode.ErrInternal())
+		writeServiceError(c, err)
 		return
 	}
 

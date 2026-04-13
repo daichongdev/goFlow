@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"goflow/internal/pkg/auth"
 	"goflow/internal/pkg/errcode"
 	"goflow/internal/pkg/response"
 
@@ -19,7 +20,7 @@ func NewAuthMiddleware(secret string) *AuthMiddleware {
 	return &AuthMiddleware{jwtSecret: []byte(secret)}
 }
 
-func (m *AuthMiddleware) parseToken(c *gin.Context) (*CustomClaims, bool) {
+func (m *AuthMiddleware) parseToken(c *gin.Context) (*auth.Claims, bool) {
 	authHeader := c.GetHeader("Authorization")
 	if authHeader == "" {
 		response.Error(c, errcode.ErrUnauthorized())
@@ -40,7 +41,7 @@ func (m *AuthMiddleware) parseToken(c *gin.Context) (*CustomClaims, bool) {
 		return nil, false
 	}
 
-	token, err := jwt.ParseWithClaims(parts[1], &CustomClaims{}, func(t *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(parts[1], &auth.Claims{}, func(t *jwt.Token) (interface{}, error) {
 		if t.Method != jwt.SigningMethodHS256 {
 			return nil, fmt.Errorf("unexpected signing method: %v", t.Header["alg"])
 		}
@@ -52,7 +53,7 @@ func (m *AuthMiddleware) parseToken(c *gin.Context) (*CustomClaims, bool) {
 		return nil, false
 	}
 
-	claims, ok := token.Claims.(*CustomClaims)
+	claims, ok := token.Claims.(*auth.Claims)
 	if !ok {
 		response.Error(c, errcode.ErrUnauthorized())
 		c.Abort()
@@ -69,7 +70,7 @@ func (m *AuthMiddleware) AppAuth() gin.HandlerFunc {
 			return
 		}
 
-		if claims.Role != RoleUser {
+		if claims.Role != auth.RoleUser {
 			response.Error(c, errcode.ErrForbidden())
 			c.Abort()
 			return
@@ -87,7 +88,7 @@ func (m *AuthMiddleware) AdminAuth() gin.HandlerFunc {
 			return
 		}
 
-		if claims.Role != RoleAdmin {
+		if claims.Role != auth.RoleAdmin {
 			response.Error(c, errcode.ErrForbidden())
 			c.Abort()
 			return

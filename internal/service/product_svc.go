@@ -95,8 +95,16 @@ func (s *productService) GetByID(ctx context.Context, id uint) (*model.Product, 
 }
 
 func (s *productService) Create(ctx context.Context, product *model.Product) error {
-	s.rdb.Set(ctx, fmt.Sprintf("product:%d", product.ID), nullCacheValue, nullCacheTTL)
-	return s.repo.Create(ctx, product)
+	if err := s.repo.Create(ctx, product); err != nil {
+		return errcode.ErrInternal()
+	}
+	if s.rdb != nil {
+		cacheKey := fmt.Sprintf("product:%d", product.ID)
+		if err := s.rdb.Del(ctx, cacheKey).Err(); err != nil {
+			logger.WithCtx(ctx).Warnw("delete product cache failed", "error", err)
+		}
+	}
+	return nil
 }
 
 func (s *productService) Update(ctx context.Context, product *model.Product) error {
