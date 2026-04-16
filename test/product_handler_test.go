@@ -9,11 +9,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"goflow/internal/handler"
-	"goflow/internal/model"
-	"goflow/internal/mq"
-	"goflow/internal/pkg/errcode"
-	resppkg "goflow/internal/pkg/response"
+	"gonio/internal/handler"
+	"gonio/internal/model"
+	"gonio/internal/mq"
+	"gonio/internal/pkg/errcode"
+	resppkg "gonio/internal/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )

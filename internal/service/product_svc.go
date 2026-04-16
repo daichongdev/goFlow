@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"time"
 
-	"goflow/internal/model"
-	"goflow/internal/pkg/errcode"
-	"goflow/internal/pkg/logger"
-	"goflow/internal/repository"
+	"gonio/internal/model"
+	"gonio/internal/pkg/errcode"
+	"gonio/internal/pkg/logger"
+	"gonio/internal/repository"
 
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"

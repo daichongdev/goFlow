@@ -8,9 +8,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"goflow/internal/handler"
-	"goflow/internal/pkg/errcode"
-	resppkg "goflow/internal/pkg/response"
+	"gonio/internal/handler"
+	"gonio/internal/pkg/errcode"
+	resppkg "gonio/internal/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )

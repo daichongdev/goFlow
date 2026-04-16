@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"goflow/internal/pkg/i18n"
+	"gonio/internal/pkg/i18n"
 
 	"github.com/gin-gonic/gin"
 )

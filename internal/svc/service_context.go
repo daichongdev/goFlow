@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"goflow/internal/config"
-	"goflow/internal/mq"
-	"goflow/internal/pkg/ratelimit"
-	"goflow/internal/repository"
-	"goflow/internal/service"
+	"gonio/internal/config"
+	"gonio/internal/mq"
+	"gonio/internal/pkg/ratelimit"
+	"gonio/internal/repository"
+	"gonio/internal/service"
 
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"

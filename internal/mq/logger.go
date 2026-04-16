@@ -3,7 +3,7 @@ package mq
 import (
 	"strings"
 
-	"goflow/internal/pkg/logger"
+	"gonio/internal/pkg/logger"
 
 	"github.com/ThreeDotsLabs/watermill"
 	"go.uber.org/zap"

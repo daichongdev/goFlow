@@ -24,7 +24,7 @@ mysql:
 
 mq:
   driver: redis          # redis 或 mysql
-  consumer_group: goflow-group
+  consumer_group: gonio-group
   topic_concurrency:     # 按 topic 单独配置，未配置默认 1
     email: 3
     sms: 1
@@ -55,7 +55,7 @@ redis:
   max_retry_backoff: 512    # 最大重试退避时间(毫秒)
 
 jwt:
-  secret: "goflow-secret-key-change-me"
+  secret: "gonio-secret-key-change-me"
   expire: 7200 # seconds
 
 log:

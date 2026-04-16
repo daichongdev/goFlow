@@ -1,14 +1,14 @@
-# GoFlow - Golang Gin Backend Scaffold with Redis Rate Limiter, JWT Auth, and Clean Architecture
+# Gonio - Golang Gin Backend Scaffold with Redis Rate Limiter, JWT Auth, and Clean Architecture
 
 [![Go Version](https://img.shields.io/badge/Go-1.25+-00ADD8?logo=go)](https://go.dev/)
 [![Gin](https://img.shields.io/badge/Gin-Web%20Framework-00A86B)](https://github.com/gin-gonic/gin)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-GoFlow 是一个面向生产环境的 **Golang 后端脚手架**，基于 **Gin + GORM + Redis + MySQL**，内置 **IP + 路由限流（Redis Lua）**、JWT 认证、结构化日志、消息队列、多语言校验、优雅停机。
+Gonio 是一个面向生产环境的 **Golang 后端脚手架**，基于 **Gin + GORM + Redis + MySQL**，内置 **IP + 路由限流（Redis Lua）**、JWT 认证、结构化日志、消息队列、多语言校验、优雅停机。
 
-If you are looking for a **Go API starter template**, **Gin Redis rate limiter example**, or a **clean architecture backend scaffold**, GoFlow is built for that.
+If you are looking for a **Go API starter template**, **Gin Redis rate limiter example**, or a **clean architecture backend scaffold**, Gonio is built for that.
 
-## Why GoFlow
+## Why Gonio
 
 - 面向高并发 API 服务：连接池、超时、重试、限流、日志链路完整
 - 清晰分层架构：`Handler -> Service -> Repository`
@@ -88,7 +88,7 @@ mysql:
 
 mq:
   driver: redis          # redis 或 mysql
-  consumer_group: goflow-group
+  consumer_group: Gonio-group
   topic_concurrency:     # 按 topic 单独配置，未配置默认 1
     email: 3
     sms: 1
@@ -119,7 +119,7 @@ redis:
   max_retry_backoff: 512    # 最大重试退避时间(毫秒)
 
 jwt:
-  secret: "goflow-secret-key-change-me"
+  secret: "Gonio-secret-key-change-me"
   expire: 604800 # seconds
 
 log:
@@ -145,8 +145,8 @@ smtp:
 ### Run
 
 ```bash
-git clone https://github.com/your-username/goflow.git
-cd goflow
+git clone https://github.com/your-username/Gonio.git
+cd Gonio
 
 go mod tidy
 make run
@@ -160,7 +160,7 @@ curl http://localhost:8080/health
 
 ## Rate Limiter Example
 
-GoFlow supports Redis-based API rate limiting by **IP + route + method**.
+Gonio supports Redis-based API rate limiting by **IP + route + method**.
 
 - Product list API: `1 request / 1 second`
 - Product create API: `1 request / 3 seconds`

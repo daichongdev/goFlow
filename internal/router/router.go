@@ -6,12 +6,12 @@ import (
 	"sync"
 	"time"
 
-	"goflow/internal/handler"
-	"goflow/internal/middleware"
-	"goflow/internal/pkg/response"
-	"goflow/internal/router/admin"
-	"goflow/internal/router/app"
-	"goflow/internal/svc"
+	"gonio/internal/handler"
+	"gonio/internal/middleware"
+	"gonio/internal/pkg/response"
+	"gonio/internal/router/admin"
+	"gonio/internal/router/app"
+	"gonio/internal/svc"
 
 	"github.com/gin-gonic/gin"
 )

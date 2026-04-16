@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"goflow/internal/pkg/logger"
+	"gonio/internal/pkg/logger"
 
 	"go.uber.org/zap"
 	gormlogger "gorm.io/gorm/logger"

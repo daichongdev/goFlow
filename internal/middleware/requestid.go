@@ -6,7 +6,7 @@ import (
 	"encoding/hex"
 	"math/rand/v2"
 
-	"goflow/internal/pkg/logger"
+	"gonio/internal/pkg/logger"
 
 	"github.com/gin-gonic/gin"
 )

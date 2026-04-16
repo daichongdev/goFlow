@@ -1,7 +1,7 @@
 package admin
 
 import (
-	"goflow/internal/handler"
+	"gonio/internal/handler"
 
 	"github.com/gin-gonic/gin"
 )

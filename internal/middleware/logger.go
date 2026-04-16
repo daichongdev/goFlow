@@ -3,7 +3,7 @@ package middleware
 import (
 	"time"
 
-	"goflow/internal/pkg/logger"
+	"gonio/internal/pkg/logger"
 
 	"github.com/gin-gonic/gin"
 )

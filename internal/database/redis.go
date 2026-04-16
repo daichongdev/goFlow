@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"goflow/internal/config"
-	"goflow/internal/pkg/logger"
+	"gonio/internal/config"
+	"gonio/internal/pkg/logger"
 
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"

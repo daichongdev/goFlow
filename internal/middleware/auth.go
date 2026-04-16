@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"goflow/internal/pkg/auth"
-	"goflow/internal/pkg/errcode"
-	"goflow/internal/pkg/response"
+	"gonio/internal/pkg/auth"
+	"gonio/internal/pkg/errcode"
+	"gonio/internal/pkg/response"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"

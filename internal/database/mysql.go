@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"goflow/internal/config"
-	"goflow/internal/pkg/logger"
+	"gonio/internal/config"
+	"gonio/internal/pkg/logger"
 
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"

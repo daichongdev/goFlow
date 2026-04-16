@@ -2,8 +2,8 @@ package response
 
 import (
 	"fmt"
-	"goflow/internal/pkg/errcode"
-	"goflow/internal/pkg/i18n"
+	"gonio/internal/pkg/errcode"
+	"gonio/internal/pkg/i18n"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -1,9 +1,9 @@
 package admin
 
 import (
-	"goflow/internal/handler"
-	"goflow/internal/middleware"
-	"goflow/internal/pkg/ratelimit"
+	"gonio/internal/handler"
+	"gonio/internal/middleware"
+	"gonio/internal/pkg/ratelimit"
 	"time"
 
 	"github.com/gin-gonic/gin"

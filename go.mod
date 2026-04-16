@@ -1,4 +1,4 @@
-module goflow
+module gonio
 
 go 1.25.0
 

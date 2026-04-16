@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"goflow/internal/config"
+	"gonio/internal/config"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

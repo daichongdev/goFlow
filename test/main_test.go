@@ -4,8 +4,8 @@ import (
 	"os"
 	"testing"
 
-	"goflow/internal/config"
-	"goflow/internal/pkg/logger"
+	"gonio/internal/config"
+	"gonio/internal/pkg/logger"
 )
 
 func TestMain(m *testing.M) {

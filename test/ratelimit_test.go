@@ -2,7 +2,7 @@ package test
 
 import (
 	"context"
-	"goflow/internal/pkg/ratelimit"
+	"gonio/internal/pkg/ratelimit"
 	"testing"
 	"time"
 )

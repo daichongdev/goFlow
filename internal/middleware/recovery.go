@@ -3,9 +3,9 @@ package middleware
 import (
 	"runtime/debug"
 
-	"goflow/internal/pkg/errcode"
-	"goflow/internal/pkg/logger"
-	"goflow/internal/pkg/response"
+	"gonio/internal/pkg/errcode"
+	"gonio/internal/pkg/logger"
+	"gonio/internal/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )

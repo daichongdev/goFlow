@@ -5,12 +5,12 @@ import (
 	"errors"
 	"time"
 
-	"goflow/internal/config"
-	"goflow/internal/model"
-	"goflow/internal/pkg/auth"
-	"goflow/internal/pkg/errcode"
-	"goflow/internal/pkg/response"
-	"goflow/internal/repository"
+	"gonio/internal/config"
+	"gonio/internal/model"
+	"gonio/internal/pkg/auth"
+	"gonio/internal/pkg/errcode"
+	"gonio/internal/pkg/response"
+	"gonio/internal/repository"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

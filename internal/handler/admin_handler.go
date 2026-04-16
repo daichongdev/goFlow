@@ -3,11 +3,11 @@ package handler
 import (
 	"context"
 
-	"goflow/internal/pkg/errcode"
-	"goflow/internal/pkg/i18n"
-	"goflow/internal/pkg/req"
-	"goflow/internal/pkg/response"
-	"goflow/internal/pkg/validator"
+	"gonio/internal/pkg/errcode"
+	"gonio/internal/pkg/i18n"
+	"gonio/internal/pkg/req"
+	"gonio/internal/pkg/response"
+	"gonio/internal/pkg/validator"
 
 	"github.com/gin-gonic/gin"
 )

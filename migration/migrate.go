@@ -3,8 +3,8 @@ package migration
 import (
 	"fmt"
 
-	"goflow/internal/model"
-	"goflow/internal/pkg/logger"
+	"gonio/internal/model"
+	"gonio/internal/pkg/logger"
 
 	"gorm.io/gorm"
 )

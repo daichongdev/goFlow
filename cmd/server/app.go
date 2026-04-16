@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"time"
 
-	"goflow/internal/config"
-	"goflow/internal/mq"
-	"goflow/internal/pkg/logger"
+	"gonio/internal/config"
+	"gonio/internal/mq"
+	"gonio/internal/pkg/logger"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -25,10 +25,10 @@ func NewApp(cfg *config.Config, handler http.Handler, mqRouter *mq.Router, redis
 	return &App{
 		cfg: cfg,
 		httpServer: &http.Server{
-			Addr:         fmt.Sprintf(":%d", cfg.Server.Port),
-			Handler:      handler,
-			ReadTimeout:  time.Duration(cfg.Server.ReadTimeout) * time.Second,
-			WriteTimeout: time.Duration(cfg.Server.WriteTimeout) * time.Second,
+			Addr:              fmt.Sprintf(":%d", cfg.Server.Port),
+			Handler:           handler,
+			ReadTimeout:       time.Duration(cfg.Server.ReadTimeout) * time.Second,
+			WriteTimeout:      time.Duration(cfg.Server.WriteTimeout) * time.Second,
 			ReadHeaderTimeout: 5 * time.Second,
 			IdleTimeout:       60 * time.Second,
 		},

@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"goflow/internal/model"
+	"gonio/internal/model"
 
 	"gorm.io/gorm"
 )
