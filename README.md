@@ -1,14 +1,19 @@
-# Gonio - Golang Gin Backend Scaffold with Redis Rate Limiter, JWT Auth, and Clean Architecture
+# Gonio - Golang Gin 后端脚手架（Redis 限流、JWT、Clean Architecture）
 
 [![Go Version](https://img.shields.io/badge/Go-1.25+-00ADD8?logo=go)](https://go.dev/)
 [![Gin](https://img.shields.io/badge/Gin-Web%20Framework-00A86B)](https://github.com/gin-gonic/gin)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
+## 语言切换
+
+- 中文版（当前）
+- [英文版](./README.en.md)
+
 Gonio 是一个面向生产环境的 **Golang 后端脚手架**，基于 **Gin + GORM + Redis + MySQL**，内置 **IP + 路由限流（Redis Lua）**、JWT 认证、结构化日志、消息队列、多语言校验、优雅停机。
 
-If you are looking for a **Go API starter template**, **Gin Redis rate limiter example**, or a **clean architecture backend scaffold**, Gonio is built for that.
+如果你在找 **Go API 起步模板**、**Gin + Redis 限流示例**，或者 **Clean Architecture 风格的后端脚手架**，Gonio 可以直接作为工程基础使用。
 
-## Why Gonio
+## 为什么选择 Gonio
 
 - 面向高并发 API 服务：连接池、超时、重试、限流、日志链路完整
 - 清晰分层架构：`Handler -> Service -> Repository`
@@ -16,18 +21,18 @@ If you are looking for a **Go API starter template**, **Gin Redis rate limiter e
 - 可扩展性强：通过 `ServiceContext` 统一依赖注入
 - 可观测性友好：Zap 结构化日志 + DB/Redis 日志钩子
 
-## Core Features
+## 核心能力
 
-- **Gin Web API Framework**
-- **GORM + MySQL** data access layer
-- **Redis cache and Redis-based rate limiter**
-- **IP + Route Rate Limit** via Redis Lua script (atomic)
-- **JWT Authentication** for app/admin
-- **Watermill MQ** with Redis Streams / MySQL backend
-- **I18n Validation & Error Messages**
-- **Graceful Shutdown**
+- **Gin Web API 框架**
+- **GORM + MySQL** 数据访问层
+- **Redis 缓存与 Redis 分布式限流**
+- 基于 Redis Lua 的 **IP + 路由限流**（原子执行）
+- 面向 app/admin 的 **JWT 认证**
+- 基于 Watermill 的消息队列（Redis Streams / MySQL）
+- **I18n 校验与错误信息**
+- **优雅停机**
 
-## Architecture
+## 目录结构
 
 ```text
 .
@@ -51,16 +56,17 @@ If you are looking for a **Go API starter template**, **Gin Redis rate limiter e
 └── Makefile
 ```
 
-## Quick Start
+## 快速开始
 
-### Requirements
+### 环境要求
 
 - Go 1.25+
 - MySQL 8.0+
 - Redis 6.0+
 
-### Add Config
-```
+### 添加配置
+
+```yaml
 /config/config-dev.yaml
 server:
   port: 8080
@@ -94,11 +100,11 @@ mq:
     sms: 1
     stats: 2
   default_max_len: 20   # stream 全局默认最大长度
-  topic_max_len:           # 按 topic 单独设置，优先级高于全局
+  topic_max_len:        # 按 topic 单独设置，优先级高于全局
     email: 10
     sms: 2000
     stats: 10000
-  trim_interval: 3600      # 定期 XTRIM 间隔（秒），0 为不启用
+  trim_interval: 3600   # 定期 XTRIM 间隔（秒），0 为不启用
 
 redis:
   addr: 127.0.0.1:6379
@@ -139,10 +145,9 @@ smtp:
   password: ""
   from: no-reply@example.com
   tls: true
-
 ```
 
-### Run
+### 运行项目
 
 ```bash
 git clone https://github.com/your-username/Gonio.git
@@ -152,49 +157,47 @@ go mod tidy
 make run
 ```
 
-Health check:
+健康检查：
 
 ```bash
 curl http://localhost:8080/health
 ```
 
-## Rate Limiter Example
+## 限流示例
 
-Gonio supports Redis-based API rate limiting by **IP + route + method**.
+Gonio 支持基于 Redis 的 API 限流，维度为 **IP + 路由 + 方法**。
 
-- Product list API: `1 request / 1 second`
-- Product create API: `1 request / 3 seconds`
+- 商品列表接口：`1 request / 1 second`
+- 商品创建接口：`1 request / 3 seconds`
 
-关键词（SEO）：`Golang 限流器`、`Gin 限流中间件`、`Redis Lua 限流`、`IP 路由限流`、`Go API Rate Limiter`
-
-## Typical Use Cases
+## 典型场景
 
 - 电商 API / 用户中心 / 管理后台
 - 需要登录认证 + 限流 + 日志审计的业务系统
 - 需要快速落地的 Go 微服务或单体 API 项目
 
-## API Overview
+## API 概览
 
-- App APIs: `/app/v1/*`
-- Admin APIs: `/admin/v1/*`
-- Health Check: `/health`
+- App API：`/app/v1/*`
+- Admin API：`/admin/v1/*`
+- 健康检查：`/health`
 
-## Roadmap
+## 规划路线
 
-- Sliding window / token bucket rate limit strategy
-- OpenAPI/Swagger docs
-- Prometheus metrics and tracing integration
+- 滑动窗口 / 令牌桶限流策略
+- OpenAPI / Swagger 文档
+- Prometheus 指标与链路追踪集成
 
-## SEO Keywords
+## 关键词
 
-Golang backend scaffold, Gin boilerplate, Go web api template, Redis rate limiter, Gin rate limit middleware, JWT auth in Go, GORM MySQL starter, Clean Architecture Go.
+`Golang 限流器`、`Gin 限流中间件`、`Redis Lua 限流`、`IP 路由限流`、`Go API Rate Limiter`
 
-## Contributing
+## 参与贡献
 
-Issues and PRs are welcome.
+欢迎提交 Issue 和 PR。
 
-If this project helps you, please consider giving it a ⭐ on GitHub.
+如果这个项目对你有帮助，欢迎给个 ⭐ 支持。
 
-## License
+## 许可证
 
-MIT License. See [LICENSE](./LICENSE).
+MIT License，详见 [LICENSE](./LICENSE)。
