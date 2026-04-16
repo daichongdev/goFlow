@@ -6,8 +6,8 @@
 
 ## 语言切换
 
-- 中文版（当前）
-- [英文版](./README.en.md)
+- 中文版（
+- [English](./README.en.md)
 
 Gonio 是一个面向生产环境的 **Golang 后端脚手架**，基于 **Gin + GORM + Redis + MySQL**，内置 **IP + 路由限流（Redis Lua）**、JWT 认证、结构化日志、消息队列、多语言校验、优雅停机。
 
