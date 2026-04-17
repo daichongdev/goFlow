@@ -28,7 +28,7 @@ func Setup(svcCtx *svc.ServiceContext, auth *middleware.AuthMiddleware) *gin.Eng
 	// 全局中间件
 	r.Use(middleware.RequestID())
 	r.Use(middleware.I18n())
-	r.Use(middleware.Logger())
+	r.Use(middleware.ReqRespLogger()) // 记录请求和响应详情
 	r.Use(middleware.Recovery())
 	r.Use(middleware.CORS(svcCtx.Config.Server.CORSOrigins))
 	r.Use(middleware.MaxBodySize(4 << 20)) // 4MB 请求体上限，防止 OOM

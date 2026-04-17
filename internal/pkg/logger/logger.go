@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"path/filepath"
+	"time"
 
 	"gonio/internal/config"
 
@@ -96,7 +97,12 @@ func Init(cfg *config.LogConfig) {
 	// 文件输出：按级别分文件
 	if cfg.LogDir != "" {
 		newBufferedFileWriter := func(filename string) zapcore.WriteSyncer {
-			return &zapcore.BufferedWriteSyncer{WS: newFileWriter(filename)}
+			// 配置 BufferedWriteSyncer：每 1 秒或 256KB 自动刷新
+			return &zapcore.BufferedWriteSyncer{
+				WS:            newFileWriter(filename),
+				Size:          256 * 1024,  // 256KB 缓冲区
+				FlushInterval: time.Second, // 每秒自动刷新
+			}
 		}
 
 		// app.log：所有级别
